@@ -1,0 +1,40 @@
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.gallery img {
+    height: 320px;
+}
+
+.gallery li {
+    position: relative;
+
+}
+
+.gallery li img {
+    transition: 1s;
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.gallery li:hover img {
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.gallery li:hover .countryText {
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.countryText {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #fff;
+    font-size: 32px;
+    transition: 1s;
+}
