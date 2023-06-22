@@ -1,37 +1,46 @@
 import { generateRandomImg } from '@/lib/generateRandomImg';
+import prisma from '@/lib/prisma';
+import { Resort } from '@prisma/client';
+import Head from 'next/head';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
-export default function Page( { data }: any ) {
-	// *****
-	// TODO:
-	// 1. please change how to get the resort data using Server Side Rendering (SSR) according to the url slug from "/api/resort/detail/slug"
-	// *****
+export default function Page({
+	resort_data,
+}: {
+	resort_data: Resort;
+}) {
 	return (
 		<main>
+			<Head>
+				<title>{resort_data.name}</title>
+				<meta name="description" content={resort_data.name} />
+			</Head>
 			<Image
-				src={data.image_url}
-				alt={data.resort_name}
+				src={resort_data.image_url}
+				alt={resort_data.name}
 				width={1440}
 				height={900}
 				className="w-full max-h-[70vh] object-cover"
 			/>
 			<div className="text-center max-w-[1200px] mx-auto my-40">
 				<h1 className="text-4xl mx-auto w-fit mb-8">
-					{data.resort_name}
+					{resort_data.name}
 				</h1>
-				<p>{data.resort_description}</p>
+				<p>{resort_data.description}</p>
 			</div>
 		</main>
 	);
 }
 
-export async function getServerSideProps({query: {slug}}: any) {
-	// Fetch data from external API
-	const res = await fetch(`https://the-best-resort.vercel.app/api/resort/detail/${slug}`)
-	const data = await res.json()
-   
-	// Pass data to the page via props
-	console.log();
-	return { props: { data } }
-  }
+export async function getServerSideProps({ query: { slug } }: any) {
+	const data = await prisma.resort.findFirst({
+		where: {
+			slug: slug,
+		},
+	});
+	return {
+		props: {
+			resort_data: data,
+		},
+	};
+}
