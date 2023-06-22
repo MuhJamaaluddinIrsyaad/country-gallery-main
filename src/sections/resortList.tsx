@@ -20,15 +20,12 @@ export const ResortList = ({
 	const router = useRouter();
 	const country = router.query.country;
 
-	// const { data, error, isLoading } = useSWR<Resort[]>(
-	// 	() =>
-	// 		'/api/resort/list' +
-	// 		(country ? `?country=${country}` : ''),
-	// 	getResortList
-	// );
 
-	// if (isLoading) return <p>...isLoading</p>;
-	// if (error) return <p>Something went wrong</p>;
+	if (country) {
+		resort_list = resort_list.filter(function(resortdb) {
+			return resortdb.countrySlug == country;
+		  });
+	}
 
 	return (
 		<section className="p-8 flex gap-16 justify-between">
