@@ -7,7 +7,7 @@ export const Layout = ({
 }) => {
 	return (
 		<>
-			<div className="p-4 shadow-xl flex justify-between gap-4 fixed top-0 left-0 w-full z-50 bg-white ">
+			<div className="p-4 shadow-xl flex justify-between gap-4 fixed top-0 left-0 w-full z-40 bg-white ">
 				<Link className="text-4xl font-bold" href={'/'}>
 					Norwood
 				</Link>
